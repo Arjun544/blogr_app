@@ -18,7 +18,14 @@ class SettingsTab extends StatelessWidget {
               'Dark mode',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            CustomSwitch(),
+            CustomSwitch(
+              onPressed: () {
+                if (Get.isDarkMode)
+                  Get.changeThemeMode(ThemeMode.light);
+                else
+                  Get.changeThemeMode(ThemeMode.dark);
+              },
+            ),
           ],
         ),
         SizedBox(

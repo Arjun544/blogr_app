@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomSwitch extends StatefulWidget {
+  final Function onPressed;
+
+  const CustomSwitch({@required this.onPressed});
   @override
   _CustomSwitchState createState() => _CustomSwitchState();
 }
@@ -61,6 +64,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                   alignment: _animation.value,
                   child: GestureDetector(
                     onTap: () {
+                      widget.onPressed();
                       setState(() {
                         if (_animationController.isCompleted) {
                           _animationController.reverse();
