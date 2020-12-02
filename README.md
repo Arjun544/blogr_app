@@ -14,6 +14,7 @@ ScreenShots:
 [![Detail-screen.png](https://i.postimg.cc/MK1BzWGY/Detail-screen.png)](https://postimg.cc/zVXvjYKL)
 [![Article-comments.png](https://i.postimg.cc/4xBm3nRp/Article-comments.png)](https://postimg.cc/w1R6fqvB)
 [![Bookmark-screen.png](https://i.postimg.cc/VsW1wp8C/Bookmark-screen.png)](https://postimg.cc/Jt0ScTtr)
+[![Profile-screen.png](https://i.postimg.cc/d1Q6yhhv/Profile-screen.png)](https://postimg.cc/sB85FDP0)
 
 ## Getting Started
 
