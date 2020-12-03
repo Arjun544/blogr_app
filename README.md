@@ -1,6 +1,7 @@
 # blogr_app
 
 Blogr is an open platform where readers find dynamic thinking, and where expert and undiscovered voices can share their writing on any topic.
+Build with MVC pattern and Getx for dependencies injection and state management.
 
 
 ScreenShots:
@@ -15,6 +16,7 @@ ScreenShots:
 [![Article-comments.png](https://i.postimg.cc/4xBm3nRp/Article-comments.png)](https://postimg.cc/w1R6fqvB)
 [![Bookmark-screen.png](https://i.postimg.cc/VsW1wp8C/Bookmark-screen.png)](https://postimg.cc/Jt0ScTtr)
 [![Profile-screen.png](https://i.postimg.cc/d1Q6yhhv/Profile-screen.png)](https://postimg.cc/sB85FDP0)
+[![Settings-screen.png](https://i.postimg.cc/50WpVFq9/Settings-screen.png)](https://postimg.cc/PLK1bJR0)
 
 ## Getting Started
 
