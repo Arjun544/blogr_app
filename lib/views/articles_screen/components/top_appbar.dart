@@ -21,10 +21,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Text(
                 'B',
-                style: TextStyle(
-                    fontSize: 30,
-                    color: CustomColors.blackColor,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).appBarTheme.textTheme.headline1,
               ),
               Container(
                 height: 10,
@@ -46,7 +43,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               child: SvgPicture.asset(
                 'assets/Search.svg',
-                color: CustomColors.greyColor,
+                color: Theme.of(context).appBarTheme.iconTheme.color,
                 height: 26,
               ),
             ),
@@ -91,9 +88,9 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 style: TextStyle(
                                   fontSize: 21,
                                   color: controller.selectedIndex == index
-                                      ? CustomColors.blackColor
-                                      : Colors.grey,
-                                  fontWeight: FontWeight.w700,
+                                      ? Theme.of(context).textTheme.headline1.color
+                                      : Theme.of(context).textTheme.headline2.color,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Container(

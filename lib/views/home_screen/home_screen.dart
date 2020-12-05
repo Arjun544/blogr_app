@@ -1,4 +1,3 @@
-import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/home_screen_controller.dart';
 import 'package:blogr_app/views/articles_screen/articles_screen.dart';
 import 'package:blogr_app/views/favorite_screen/favorite_screen.dart';
@@ -26,14 +25,19 @@ class HomeScreen extends StatelessWidget {
         init: HomeScreenController(),
         builder: (controller) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).backgroundColor,
             body: _children[controller.currentIndex],
             extendBody: true,
             bottomNavigationBar: CustomBottomAppBar(
               height: 80,
               iconSize: 30,
-              color: CustomColors.greyColor,
-              selectedColor: CustomColors.blackColor,
+              backgroundColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              color: Theme.of(context)
+                  .bottomNavigationBarTheme
+                  .unselectedItemColor,
+              selectedColor:
+                  Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
               notchedShape: CircularNotchedRectangle(),
               onTabSelected: controller.selectedTab,
               items: [

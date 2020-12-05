@@ -2,8 +2,8 @@ import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/profile_screen_controller.dart';
 import 'package:blogr_app/views/profile_screen/components/articles_tab.dart';
 import 'package:blogr_app/views/profile_screen/components/settings_tab.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).backgroundColor,
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 pinned: true,
                 delegate: StickyTabBarDelegate(
                   child: TabBar(
-                    labelColor: Colors.black,
+                    labelColor: Theme.of(context).textTheme.headline1.color,
                     indicatorWeight: 4,
                     indicatorPadding: EdgeInsets.symmetric(horizontal: 30),
                     unselectedLabelStyle: TextStyle(

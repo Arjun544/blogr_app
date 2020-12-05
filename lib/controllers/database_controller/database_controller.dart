@@ -82,8 +82,6 @@ class DatabaseController extends GetxController {
     String userId,
     String articleId,
   }) async {
-    var allDoc =
-        await _userCollection.doc(userId).collection('bookmarks').get();
     DocumentSnapshot doc = await _articlesCollection.doc(articleId).get();
     if (doc.data()['bookMarks'].contains(userId)) {
       await _articlesCollection.doc(articleId).update({
@@ -143,5 +141,13 @@ class DatabaseController extends GetxController {
     await _articlesCollection.doc(docId).set(
           articleModel.toMap(articleModel),
         );
+  }
+
+  Future getSearchResults(String searchKey) {
+    return _articlesCollection
+        .where('title', isGreaterThanOrEqualTo: searchKey)
+        .where('title', isLessThan: searchKey + 'z')
+        .get()
+        .then((value) => value.docs);
   }
 }

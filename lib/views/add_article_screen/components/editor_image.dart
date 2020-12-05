@@ -4,12 +4,12 @@ import 'package:blogr_app/controllers/add_article_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:zefyr_plus/zefyr.dart';
+import 'package:zefyr/zefyr.dart';
 
 class EditorAddImage implements ZefyrImageDelegate<ImageSource> {
   final AddArticleController addArticleController =
       Get.find<AddArticleController>();
-      
+
   @override
   ImageSource get cameraSource => ImageSource.camera;
 

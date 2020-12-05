@@ -9,6 +9,7 @@ class SelectCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Center(
           child: GetBuilder<AddArticleController>(
@@ -28,7 +29,8 @@ class SelectCategory extends StatelessWidget {
                             'Select a category of article :',
                             style: TextStyle(
                               fontSize: 22,
-                              color: CustomColors.blackColor,
+                              color:
+                                  Theme.of(context).textTheme.headline1.color,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -41,13 +43,14 @@ class SelectCategory extends StatelessWidget {
                             width: Get.mediaQuery.size.width * 0.7,
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                                color: CustomColors.greyColor,
-                                borderRadius: BorderRadius.circular(10)),
+                              color: CustomColors.bottomBarColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                   isExpanded: true,
                                   iconEnabledColor: Colors.white,
-                                  dropdownColor: Colors.grey,
+                                  dropdownColor: CustomColors.bottomBarColor,
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,

@@ -1,7 +1,5 @@
 import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/articles_controller.dart';
-import 'package:blogr_app/views/articles_screen/articles_screen.dart';
-import 'package:blogr_app/views/articles_screen/components/reading_time.dart';
 import 'package:blogr_app/views/detail_screen/detail_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -23,12 +20,13 @@ class FavoriteScreen extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Text(
           'Saved articles',
-          style: TextStyle(color: CustomColors.blackColor),
+          style: TextStyle()
+              .copyWith(color: Theme.of(context).textTheme.headline1.color),
         ),
       ),
       body: StreamBuilder(
@@ -66,7 +64,6 @@ class FavoriteScreen extends StatelessWidget {
               itemCount: snapshot.data.docs.length,
               itemBuilder: (context, index) {
                 DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
-                var readTime = readingTime(documentSnapshot.data()['desc']);
                 return InkWell(
                   onTap: () {
                     Get.to(
@@ -84,7 +81,7 @@ class FavoriteScreen extends StatelessWidget {
                           margin:
                               EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Padding(
@@ -103,8 +100,13 @@ class FavoriteScreen extends StatelessWidget {
                                       child: Text(
                                         documentSnapshot.data()['title'],
                                         style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ).copyWith(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .headline1
+                                                .color),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -137,8 +139,11 @@ class FavoriteScreen extends StatelessWidget {
                                           style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
-                                            color: CustomColors.blackColor,
-                                          ),
+                                          ).copyWith(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .headline1
+                                                  .color),
                                         ),
                                         SizedBox(
                                           width: 5,
@@ -159,8 +164,11 @@ class FavoriteScreen extends StatelessWidget {
                                           style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
-                                            color: CustomColors.blackColor,
-                                          ),
+                                          ).copyWith(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .headline1
+                                                  .color),
                                         ),
                                         SizedBox(
                                           width: 5,

@@ -4,7 +4,7 @@ import 'package:blogr_app/controllers/database_controller/database_controller.da
 import 'package:blogr_app/views/add_article_screen/components/selectCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zefyr_plus/zefyr.dart';
+import 'package:zefyr/zefyr.dart';
 
 import 'components/editor_image.dart';
 import 'components/editor_toolbar.dart';
@@ -12,21 +12,24 @@ import 'components/editor_toolbar.dart';
 class AddArticleScreen extends StatelessWidget {
   final AddArticleController addArticleController =
       Get.find<AddArticleController>();
+
   final DatabaseController databaseController = Get.find<DatabaseController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: CustomColors.blackColor),
+        backgroundColor: Theme.of(context).backgroundColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).appBarTheme.iconTheme.color,
+        ),
         elevation: 0,
         title: Text(
           'Add article',
           style: TextStyle(
               fontSize: 18,
-              color: CustomColors.blackColor,
+              color: Theme.of(context).textTheme.headline1.color,
               fontWeight: FontWeight.bold),
         ),
         actions: [
@@ -63,6 +66,23 @@ class AddArticleScreen extends StatelessWidget {
         child: ZefyrScaffold(
           child: ZefyrTheme(
             data: ZefyrThemeData(
+              defaultLineTheme: LineTheme(
+                textStyle: TextStyle(
+                  color: Theme.of(context).textTheme.headline1.color,
+                  fontSize: 20,
+                ),
+                padding: EdgeInsets.only(left: 3),
+              ),
+              attributeTheme: AttributeTheme.fallback(
+                context,
+                LineTheme(
+                  textStyle: TextStyle(
+                    color: Theme.of(context).textTheme.headline1.color,
+                    fontSize: 20,
+                  ),
+                  padding: EdgeInsets.only(left: 3),
+                ),
+              ),
               toolbarTheme: ToolbarTheme.fallback(context).copyWith(
                 color: CustomColors.blackColor,
                 toggleColor: CustomColors.yellowColor,
@@ -81,8 +101,10 @@ class AddArticleScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Title here',
-                      hintStyle:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      hintStyle: TextStyle(
+                          color: Theme.of(context).textTheme.headline1.color,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -92,6 +114,8 @@ class AddArticleScreen extends StatelessWidget {
                     child: ZefyrField(
                       controller: addArticleController.zefyrController,
                       focusNode: addArticleController.focusNode,
+                      mode: ZefyrMode(
+                          canEdit: true, canSelect: true, canFormat: true),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                       ),

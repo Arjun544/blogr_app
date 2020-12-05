@@ -25,6 +25,7 @@ class ArticlesScreen extends StatelessWidget {
     date = DateTime(date.year, date.month, date.day);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: TopAppBar(),
       extendBody: true,
       body: SafeArea(
@@ -43,9 +44,9 @@ class ArticlesScreen extends StatelessWidget {
                       "Today's Read",
                       style: TextStyle(
                         fontSize: 22,
-                        color: CustomColors.blackColor,
                         fontWeight: FontWeight.bold,
-                      ),
+                      ).copyWith(
+                          color: Theme.of(context).textTheme.headline1.color),
                     ),
                   ),
                   Container(
@@ -58,7 +59,7 @@ class ArticlesScreen extends StatelessWidget {
                       builder:
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData && snapshot.data == null) {
-                          return Lottie.asset('assets/loading.json');
+                          return Center(child: Lottie.asset('assets/loading.json'));
                         }
                         return ListView.builder(
                             shrinkWrap: true,
@@ -101,9 +102,9 @@ class ArticlesScreen extends StatelessWidget {
                           "Popular",
                           style: TextStyle(
                             fontSize: 22,
-                            color: CustomColors.blackColor,
                             fontWeight: FontWeight.bold,
-                          ),
+                          ).copyWith(
+                          color: Theme.of(context).textTheme.headline1.color),
                         ),
                         Text(
                           "see all",

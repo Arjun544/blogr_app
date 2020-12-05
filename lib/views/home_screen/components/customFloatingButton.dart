@@ -1,4 +1,3 @@
-import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/add_article_screen_controller.dart';
 import 'package:blogr_app/views/add_article_screen/add_article_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,13 +23,18 @@ class CustomFloatingButton extends StatelessWidget {
         height: 60,
         width: 60,
         decoration: BoxDecoration(
-          color: context.theme.floatingActionButtonTheme.foregroundColor,
+          color: Theme.of(context).floatingActionButtonTheme.foregroundColor,
           border: Border.all(
-              color: context.theme.floatingActionButtonTheme.backgroundColor,
+              color:
+                  Theme.of(context).floatingActionButtonTheme.backgroundColor,
               width: 6),
           shape: BoxShape.circle,
         ),
-        child: Icon(Icons.add, size: 30),
+        child: Icon(
+          Icons.add,
+          size: 30,
+          color: Colors.white,
+        ),
       ),
     );
   }

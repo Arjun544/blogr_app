@@ -44,7 +44,7 @@ class ArticleTile extends StatelessWidget {
             width: isMini ? screenWidth * 0.67 : screenWidth * 0.8,
             margin: EdgeInsets.only(bottom: 15),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).cardTheme.color,
               borderRadius: BorderRadius.circular(30),
             ),
             child: ArticleInfo(

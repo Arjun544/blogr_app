@@ -22,13 +22,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0-nullsafety.1"
-  autocomplete_textfield:
-    dependency: "direct main"
-    description:
-      name: autocomplete_textfield
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.7.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -57,13 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0-nullsafety.1"
-  clipboard_manager:
-    dependency: transitive
-    description:
-      name: clipboard_manager
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.4"
   clock:
     dependency: transitive
     description:
@@ -77,21 +63,21 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.3+1"
+    version: "0.14.4"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.1+1"
+    version: "0.2.1+2"
   collection:
     dependency: transitive
     description:
@@ -147,28 +133,28 @@ packages:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.18.3+1"
+    version: "0.18.4"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
       name: firebase_auth_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.3"
+    version: "2.1.4"
   firebase_auth_web:
     dependency: transitive
     description:
       name: firebase_auth_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2+1"
+    version: "0.3.2+2"
   firebase_core:
     dependency: "direct main"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.2+1"
+    version: "0.5.3"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -189,21 +175,21 @@ packages:
       name: firebase_storage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.0"
+    version: "5.2.0"
   firebase_storage_platform_interface:
     dependency: transitive
     description:
       name: firebase_storage_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   firebase_storage_web:
     dependency: transitive
     description:
       name: firebase_storage_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.1+1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -223,6 +209,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  flutter_keyboard_visibility:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.2"
+  flutter_keyboard_visibility_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  flutter_keyboard_visibility_web:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -242,6 +249,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_typeahead:
+    dependency: "direct main"
+    description:
+      name: flutter_typeahead
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -253,14 +267,21 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.13.2"
+    version: "3.21.3"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.2"
   google_sign_in:
     dependency: "direct main"
     description:
       name: google_sign_in
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.5.5"
+    version: "4.5.6"
   google_sign_in_platform_interface:
     dependency: transitive
     description:
@@ -295,7 +316,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.7+12"
+    version: "0.6.7+14"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -345,13 +366,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0-nullsafety.3"
-  notus_plus:
+  notus:
     dependency: transitive
     description:
-      name: notus_plus
+      name: notus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.6"
+    version: "0.1.5"
   octo_image:
     dependency: transitive
     description:
@@ -450,20 +471,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.13"
-  quill_delta_plus:
+  quill_delta:
     dependency: "direct main"
     description:
-      name: quill_delta_plus
+      name: quill_delta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1"
+    version: "1.1.3"
   quiver:
     dependency: transitive
     description:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.3"
+    version: "2.1.5"
   quiver_hashcode:
     dependency: transitive
     description:
@@ -496,7 +517,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.1+2"
+    version: "1.3.2+1"
   sqflite_common:
     dependency: transitive
     description:
@@ -559,21 +580,21 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.7.6"
+    version: "5.7.10"
   url_launcher_linux:
     dependency: transitive
     description:
       name: url_launcher_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+1"
+    version: "0.0.1+4"
   url_launcher_macos:
     dependency: transitive
     description:
       name: url_launcher_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+8"
+    version: "0.0.1+9"
   url_launcher_platform_interface:
     dependency: transitive
     description:
@@ -587,14 +608,14 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.5+1"
   url_launcher_windows:
     dependency: transitive
     description:
       name: url_launcher_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+1"
+    version: "0.0.1+3"
   uuid:
     dependency: transitive
     description:
@@ -630,13 +651,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.5.1"
-  zefyr_plus:
+  zefyr:
     dependency: "direct main"
     description:
-      name: zefyr_plus
+      name: zefyr
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.8"
+    version: "0.12.0"
 sdks:
-  dart: ">=2.10.0-110 <2.11.0"
-  flutter: ">=1.22.0 <2.0.0"
+  dart: ">=2.10.2 <2.11.0"
+  flutter: ">=1.22.2 <2.0.0"

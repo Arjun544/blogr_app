@@ -13,14 +13,14 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: CustomColors.blackColor),
+        backgroundColor: Theme.of(context).backgroundColor,
+        elevation: Theme.of(context).appBarTheme.elevation,
+        iconTheme: IconThemeData(color: Theme.of(context).appBarTheme.iconTheme.color),
         title: Text(
           category.txt,
-          style: TextStyle(color: CustomColors.blackColor),
+          style: TextStyle(color: Theme.of(context).textTheme.headline1.color),
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -38,7 +38,7 @@ class CategoryScreen extends StatelessWidget {
                 'No articles in this category',
                 style: TextStyle(
                   fontSize: 22,
-                  color: CustomColors.greyColor,
+                  color: Theme.of(context).textTheme.headline1.color,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -56,7 +56,7 @@ class CategoryScreen extends StatelessWidget {
                       'Articles',
                       style: TextStyle(
                         fontSize: 25,
-                        color: CustomColors.blackColor,
+                        color: Theme.of(context).textTheme.headline1.color,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -66,14 +66,14 @@ class CategoryScreen extends StatelessWidget {
                       width: 35,
                       margin: EdgeInsets.only(left: 10),
                       decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: Theme.of(context).textTheme.headline1.color,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         snapshot.data.docs.length.toString(),
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.white,
+                          color: CustomColors.blackColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

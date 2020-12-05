@@ -8,12 +8,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class WriterInfo extends StatelessWidget {
-   final DocumentSnapshot articles;
-  
+  final DocumentSnapshot articles;
+
   final ArticlesController articlesController = Get.find<ArticlesController>();
 
   WriterInfo({@required this.articles});
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +33,11 @@ class WriterInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-               articles.data()['addedBy'],
+                articles.data()['addedBy'],
                 style: TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
-                  color: CustomColors.blackColor,
-                ),
+                ).copyWith(color: Theme.of(context).textTheme.headline1.color),
               ),
               SizedBox(
                 height: 5,
@@ -48,9 +46,7 @@ class WriterInfo extends StatelessWidget {
                 children: [
                   Text(
                     DateFormat.MMMEd().format(
-                      articles
-                          .data()['addedOn']
-                          .toDate(),
+                      articles.data()['addedOn'].toDate(),
                     ),
                     style: TextStyle(
                       fontSize: 15,

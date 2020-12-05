@@ -1,4 +1,4 @@
-import 'package:blogr_app/constants/constants.dart';
+
 import 'package:blogr_app/controllers/articles_controller.dart';
 import 'package:blogr_app/views/articles_screen/components/reading_time.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -49,7 +49,7 @@ class ArticleInfo extends StatelessWidget {
                     articles.data()['likes'].length.toString(),
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.black,
+                      color: Theme.of(context).textTheme.headline1.color,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -73,8 +73,8 @@ class ArticleInfo extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: 19,
-              color: CustomColors.blackColor,
-              fontWeight: FontWeight.bold,
+              color: Theme.of(context).textTheme.headline1.color,
+              fontWeight: FontWeight.w700,
             ),
           ),
           Divider(
@@ -98,18 +98,18 @@ class ArticleInfo extends StatelessWidget {
                   Text(
                     articles.data()['addedBy'],
                     style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.grey,
-                    ),
+                        fontSize: 17,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
               Text(
                 readTime['text'],
                 style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),
+                    fontSize: 16,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w700),
               ),
             ],
           ),

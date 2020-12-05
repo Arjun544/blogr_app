@@ -52,7 +52,8 @@ class ArticlesTab extends StatelessWidget {
                         margin:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: Theme.of(context)
+                              .cardColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Padding(
@@ -70,8 +71,10 @@ class ArticlesTab extends StatelessWidget {
                                     child: Text(
                                       profileData.data()['title'],
                                       style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ).copyWith(
+                          color: Theme.of(context).textTheme.headline1.color),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -104,8 +107,11 @@ class ArticlesTab extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
-                                          color: CustomColors.blackColor,
-                                        ),
+                                        ).copyWith(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .headline1
+                                                .color),
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -126,8 +132,11 @@ class ArticlesTab extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
-                                          color: CustomColors.blackColor,
-                                        ),
+                                        ).copyWith(
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .headline1
+                                                .color),
                                       ),
                                       SizedBox(
                                         width: 5,

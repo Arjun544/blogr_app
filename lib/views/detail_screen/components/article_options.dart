@@ -91,7 +91,7 @@ class ArticleOptions extends StatelessWidget {
                             SvgPicture.asset(
                               'assets/Chat.svg',
                               height: 22,
-                              color: CustomColors.greyColor.withOpacity(0.7),
+                              color: Colors.grey.withOpacity(0.9),
                             ),
                           ],
                         ),

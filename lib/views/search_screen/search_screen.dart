@@ -1,20 +1,12 @@
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/models/article_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
+import 'package:blogr_app/controllers/database_controller/database_controller.dart';
 
-class SearchService {
-  searchByName(String searchField) {
-    return FirebaseFirestore.instance
-        .collection('articles')
-        .where('searchKey',
-            isEqualTo: searchField.substring(0, 1).toUpperCase())
-        .get();
-  }
-}
+import 'package:blogr_app/views/articles_screen/components/article_tile.dart';
+import 'package:blogr_app/views/detail_screen/detail_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -22,159 +14,136 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  GlobalKey<AutoCompleteTextFieldState<ArticleModel>> key =
-      new GlobalKey();
-
-  AutoCompleteTextField searchTextField;
-  var articleData;
-
-  TextEditingController controller = new TextEditingController();
-
+  final DatabaseController databaseController = Get.find<DatabaseController>();
+  TextEditingController textEditingController = TextEditingController();
   @override
   void initState() {
-    getArticlesList();
     super.initState();
   }
 
-  Stream<List<ArticleModel>> getArticlesList() {
-    return FirebaseFirestore.instance.collection('articles').snapshots().map(
-        (snapshot) => snapshot.docs
-            .map((document) => ArticleModel.fromMap(document.data()))
-            .toList());
-  }
-  // var queryResultSet = [];
-  // var tempSearchStore = [];
-
-  // initiateSearch(value) {
-  //   if (value.length == 0) {
-  //     setState(() {
-  //       queryResultSet = [];
-  //       tempSearchStore = [];
-  //     });
-  //   }
-
-  //   if (queryResultSet.length == 0 && value.length == 1) {
-  //     SearchService().searchByName(value).then((QuerySnapshot docs) {
-  //       for (int i = 0; i < docs.docs.length; ++i) {
-  //         queryResultSet.add(docs.docs[i].data());
-  //         setState(() {
-  //           tempSearchStore.add(queryResultSet[i]);
-  //         });
-  //       }
-  //     });
-  //   } else {
-  //     queryResultSet.forEach((element) {
-  //       if (element['title'].toLowerCase().contains(value.toLowerCase()) ==
-  //           true) {
-  //         if (element['title'].toLowerCase().atIndex(value.toLowerCase()) ==
-  //             0) {
-  //           setState(() {
-  //             tempSearchStore.add(element);
-  //           });
-  //         }
-  //       }
-  //     });
-  //   }
-  //   if (tempSearchStore.length == 0 && value.length > 1) {
-  //     setState(() {});
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.white,
-      appBar: new AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: CustomColors.blackColor),
-        title: StreamBuilder(
-            stream: getArticlesList(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData && snapshot.data == null) {
-                return Lottie.asset('assets/loading.json');
-              }
-              articleData = snapshot.data;
-              return AutoCompleteTextField<ArticleModel>(
-                  style: TextStyle(color: Colors.black, fontSize: 16.0),
-                  decoration: InputDecoration(
-                      suffixIcon: Container(
-                        width: 85.0,
-                        height: 60.0,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: Padding(
+          padding: const EdgeInsets.only(left: 8, right: 10, top: 20),
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 30,
+                  color: Theme.of(context).textTheme.headline1.color,
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: TypeAheadField(
+                    hideSuggestionsOnKeyboardHide: false,
+                    noItemsFoundBuilder: (context) {
+                      return Center(
+                        child: Container(
+                          color: Theme.of(context).backgroundColor,
+                          child: Column(
+                            children: [
+                              Lottie.asset('assets/no articles.json',
+                                  height: 150),
+                              Text(
+                                'Nothing found ',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline1
+                                      .color,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: textEditingController,
+                      autocorrect: false,
+                      maxLines: 1,
+                      autofocus: true,
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
                       ),
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 20.0),
-                      filled: true,
-                      hintText: 'Search Player Name',
-                      hintStyle: TextStyle(color: Colors.black)),
-                  itemSubmitted: (item) {
-                    setState(() => searchTextField.textField.controller.text =
-                        item.searchKey);
-                  },
-                  clearOnSubmit: false,
-                  key: key,
-                  suggestions: articleData,
-                  itemBuilder: (context, item) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          item.title,
-                          style: TextStyle(fontSize: 16.0),
+                      decoration: InputDecoration(
+                        disabledBorder: InputBorder.none,
+                        hintText: 'search articles',
+                        hintStyle: TextStyle(
+                          decoration: TextDecoration.none,
+                          fontSize: 20,
+                          color: Colors.white60,
+                          fontWeight: FontWeight.w600,
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(15.0),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            textEditingController.clear();
+                          },
                         ),
-                        Text(
-                          item.desc,
-                        )
-                      ],
-                    );
-                  },
-                  itemSorter: (a, b) {
-                    return a.searchKey.compareTo(b.searchKey);
-                  },
-                  itemFilter: (item, query) {
-                    return item.searchKey
-                        .toLowerCase()
-                        .startsWith(query.toLowerCase());
-                  });
-            }),
-
-        // title: TextField(
-        //   onChanged: (val) {
-        //     initiateSearch(val);
-        //   },
-        //   decoration: InputDecoration(
-        //     hintText: 'Search here',
-        //     hintStyle: TextStyle(
-        //       color: CustomColors.greyColor,
-        //       fontWeight: FontWeight.bold,
-        //     ),
-        //     border: InputBorder.none,
-        //   ),
-        // ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: SvgPicture.asset(
-              'assets/Search.svg',
-              color: CustomColors.greyColor,
-              height: 26,
-            ),
+                        contentPadding:
+                            EdgeInsets.only(left: 20, bottom: 15, top: 15),
+                        filled: true,
+                        fillColor: CustomColors.bottomBarColor,
+                        border: InputBorder.none,
+                      ),
+                    ),
+                    suggestionsCallback: (pattern) async {
+                      return await databaseController.getSearchResults(pattern);
+                    },
+                    suggestionsBoxDecoration: SuggestionsBoxDecoration(
+                      color: Theme.of(context).backgroundColor,
+                      shadowColor: Colors.transparent,
+                      offsetX: -12,
+                    ),
+                    suggestionsBoxVerticalOffset: 20,
+                    itemBuilder: (context, suggestion) {
+                      return textEditingController.text.length == 0
+                          ? Container()
+                          : Stack(
+                              alignment: Alignment.topCenter,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: ArticleTile(
+                                    articles: suggestion,
+                                    isMini: true,
+                                  ),
+                                ),
+                              ],
+                            );
+                    },
+                    onSuggestionSelected: (suggestion) {
+                      Get.to(
+                        DetailScreen(
+                          articles: suggestion,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-      body: Container(),
-      // body: ListView(
-      //   padding: EdgeInsets.only(left: 10.0, right: 10.0),
-      //   shrinkWrap: true,
-      //   children: tempSearchStore.map((element) {
-      //     return SearchResults(
-      //       data: element,
-      //     );
-      //   }).toList(),
-      // ),
     );
   }
 }

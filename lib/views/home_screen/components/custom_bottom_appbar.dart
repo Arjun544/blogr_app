@@ -56,7 +56,7 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
 
     return BottomAppBar(
       shape: widget.notchedShape,
-      elevation: 20,
+      elevation: Theme.of(context).bottomNavigationBarTheme.elevation,
       notchMargin: 5,
       child: Row(
         mainAxisSize: MainAxisSize.max,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zefyr_plus/zefyr.dart';
+import 'package:zefyr/zefyr.dart';
 
 class EditorToolbar implements ZefyrToolbarDelegate {
   static const kDefaultButtonIcons = {

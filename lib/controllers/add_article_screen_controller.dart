@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quill_delta_plus/quill_delta.dart';
-import 'package:zefyr_plus/zefyr.dart';
+import 'package:quill_delta/quill_delta.dart';
+import 'package:zefyr/zefyr.dart';
 
 class AddArticleController extends GetxController {
   final DatabaseController databaseController = Get.find<DatabaseController>();

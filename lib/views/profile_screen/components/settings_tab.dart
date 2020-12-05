@@ -1,4 +1,6 @@
 import 'package:blogr_app/controllers/auth_controller/auth_controller.dart';
+import 'package:blogr_app/controllers/profile_screen_controller.dart';
+import 'package:blogr_app/utils/themeService_util.dart';
 import 'package:blogr_app/views/login_screen/login_screen.dart';
 import 'package:blogr_app/views/profile_screen/components/custom_switch.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,8 @@ import 'package:get/get.dart';
 
 class SettingsTab extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
+  final ProfileScreenController profileScreenController =
+      Get.find<ProfileScreenController>();
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -16,14 +20,14 @@ class SettingsTab extends StatelessWidget {
           children: [
             Text(
               'Dark mode',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                  .copyWith(color: Theme.of(context).textTheme.headline1.color),
             ),
             CustomSwitch(
+              value: profileScreenController.isChecked.value,
               onPressed: () {
-                if (Get.isDarkMode)
-                  Get.changeThemeMode(ThemeMode.light);
-                else
-                  Get.changeThemeMode(ThemeMode.dark);
+                ThemeService().switchTheme();
+                profileScreenController.saveSwitchState();
               },
             ),
           ],
@@ -36,9 +40,13 @@ class SettingsTab extends StatelessWidget {
           children: [
             Text(
               'Receive notificatons',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                  .copyWith(color: Theme.of(context).textTheme.headline1.color),
             ),
-            CustomSwitch(),
+            CustomSwitch(
+              value: false,
+              onPressed: () {},
+            ),
           ],
         ),
         SizedBox(
@@ -49,10 +57,14 @@ class SettingsTab extends StatelessWidget {
           children: [
             Text(
               'Logout',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                  .copyWith(color: Theme.of(context).textTheme.headline1.color),
             ),
             IconButton(
-                icon: Icon(Icons.logout),
+                icon: Icon(
+                  Icons.logout,
+                  color: Theme.of(context).textTheme.headline1.color,
+                ),
                 onPressed: () async {
                   await authController.signOut();
                   Get.toNamed(LoginScreen.routeName);

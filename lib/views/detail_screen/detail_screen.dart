@@ -1,6 +1,3 @@
-import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/controllers/articles_controller.dart';
-import 'package:blogr_app/controllers/detail_screen_controller.dart';
 import 'package:blogr_app/views/detail_screen/components/article_options.dart';
 import 'package:blogr_app/views/detail_screen/components/writer_info.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -21,11 +18,8 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  final DetailScreenController detailScreenController =
-      Get.find<DetailScreenController>();
-
-      ScrollController _hideBottomNavController;
-      bool _isVisible = false;
+  ScrollController _hideBottomNavController;
+  bool _isVisible = false;
 
   @override
   initState() {
@@ -54,34 +48,35 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).backgroundColor,
           elevation: 0,
-          iconTheme: IconThemeData(color: CustomColors.blackColor),
+          iconTheme: IconThemeData(
+              color: Theme.of(context).appBarTheme.iconTheme.color),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 15),
               child: SvgPicture.asset(
                 'assets/Setting.svg',
                 height: 25,
+                color: Theme.of(context).appBarTheme.iconTheme.color,
               ),
             ),
           ],
         ),
         bottomNavigationBar: AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                height: _isVisible ? 60.0 : 0.0,
-                width: _isVisible ? screenWidth : 0.0,
-                color: Colors.grey[200],
-                child: ArticleOptions(
-                  articles: widget.articles,
-                ),
-              ),
+          duration: Duration(milliseconds: 300),
+          height: _isVisible ? 60.0 : 0.0,
+          width: _isVisible ? screenWidth : 0.0,
+          color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          child: ArticleOptions(
+            articles: widget.articles,
+          ),
+        ),
         body: CustomScrollView(
           controller: _hideBottomNavController,
           slivers: <Widget>[
@@ -117,8 +112,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: CustomColors.blackColor,
-                        ),
+                        ).copyWith(
+                            color: Theme.of(context).textTheme.headline1.color),
                       ),
                     ),
                     SizedBox(
@@ -130,7 +125,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         left: 30,
                       ),
                       child: Divider(
-                        color: Colors.blueGrey.withOpacity(0.1),
+                        color: Colors.blueGrey.withOpacity(0.2),
                         thickness: 2,
                       ),
                     ),
@@ -154,8 +149,12 @@ class _DetailScreenState extends State<DetailScreen> {
                           fontSize: 20,
                           letterSpacing: 1,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black.withOpacity(0.7),
-                        ),
+                        ).copyWith(
+                            color: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                .color
+                                .withOpacity(0.7)),
                       ),
                     ),
                   ],
