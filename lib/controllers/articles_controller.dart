@@ -2,6 +2,7 @@ import 'package:blogr_app/controllers/add_article_screen_controller.dart';
 import 'package:blogr_app/controllers/database_controller/database_controller.dart';
 import 'package:blogr_app/models/category_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ArticlesController extends GetxController {

@@ -36,13 +36,13 @@ class ArticleTile extends StatelessWidget {
               imageUrl: articles.data()['imageUrl'],
               fit: BoxFit.cover,
               height: screenHeight * 0.3,
-              width: isMini ? screenWidth * 0.73 : screenWidth * 0.865,
+              width: isMini ? screenWidth * 0.75 : screenWidth * 0.865,
             ),
           ),
           Container(
             height: screenHeight * 0.18,
-            width: isMini ? screenWidth * 0.67 : screenWidth * 0.8,
-            margin: EdgeInsets.only(bottom: 15),
+            width: isMini ? screenWidth * 0.7 : screenWidth * 0.8,
+            margin: EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
               color: Theme.of(context).cardTheme.color,
               borderRadius: BorderRadius.circular(30),

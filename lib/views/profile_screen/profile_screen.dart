@@ -31,79 +31,80 @@ class _ProfileScreenState extends State<ProfileScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
-          body: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                backgroundColor: CustomColors.blackColor,
-                floating: true,
-                snap: true,
-                pinned: true,
-                stretch: true,
-                expandedHeight: 250,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    profileScreenController.currentUser.displayName,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  centerTitle: true,
-                  background: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned.fill(
-                        child: Image.network(
-                          'https://media.istockphoto.com/vectors/abstract-black-background-geometric-texture-vector-id936834172?k=6&m=936834172&s=612x612&w=0&h=oF8_qU5HuultCXfI7KZANZcJBf9VZMuz177kpgEnMcc=',
-                          fit: BoxFit.cover,
-                        ),
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              backgroundColor: CustomColors.blackColor,
+              floating: true,
+              snap: true,
+              pinned: true,
+              stretch: true,
+              expandedHeight: 250,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(
+                  profileScreenController.currentUser.displayName,
+                  style: TextStyle(fontSize: 18),
+                ),
+                centerTitle: true,
+                background: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned.fill(
+                      child: Image.network(
+                        'https://media.istockphoto.com/vectors/abstract-black-background-geometric-texture-vector-id936834172?k=6&m=936834172&s=612x612&w=0&h=oF8_qU5HuultCXfI7KZANZcJBf9VZMuz177kpgEnMcc=',
+                        fit: BoxFit.cover,
                       ),
-                      CircleAvatar(
-                        radius: 60.0,
-                        backgroundImage: CachedNetworkImageProvider(
-                            profileScreenController.currentUser.photoURL),
-                        backgroundColor: Colors.transparent,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SliverPersistentHeader(
-                // TabBar with a ceiling)
-                pinned: true,
-                delegate: StickyTabBarDelegate(
-                  child: TabBar(
-                    labelColor: Theme.of(context).textTheme.headline1.color,
-                    indicatorWeight: 4,
-                    indicatorPadding: EdgeInsets.symmetric(horizontal: 30),
-                    unselectedLabelStyle: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
                     ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorColor: CustomColors.yellowColor,
-                    controller: tabController,
-                    tabs: <Widget>[
-                      Tab(text: 'Articles'),
-                      Tab(text: 'Settings'),
-                    ],
-                  ),
-                ),
-              ),
-              SliverFillRemaining(
-                // TabBarView, the remaining supplement)
-                child: TabBarView(
-                  controller: tabController,
-                  children: <Widget>[
-                    ArticlesTab(),
-                    SettingsTab(),
+                    CircleAvatar(
+                      radius: 60.0,
+                      backgroundImage: CachedNetworkImageProvider(
+                          profileScreenController.currentUser.photoURL),
+                      backgroundColor: Colors.transparent,
+                    )
                   ],
                 ),
               ),
-            ],
-          )),
+            ),
+            SliverPersistentHeader(
+              // TabBar with a ceiling)
+              pinned: true,
+              delegate: StickyTabBarDelegate(
+                child: TabBar(
+                  labelColor: Theme.of(context).textTheme.headline1.color,
+                  indicatorWeight: 4,
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: 30),
+                  unselectedLabelStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  labelStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorColor: CustomColors.yellowColor,
+                  controller: tabController,
+                  tabs: <Widget>[
+                    Tab(text: 'Articles'),
+                    Tab(text: 'Settings'),
+                  ],
+                ),
+              ),
+            ),
+            SliverFillRemaining(
+              // TabBarView, the remaining supplement)
+              child: TabBarView(
+                controller: tabController,
+                children: <Widget>[
+                  ArticlesTab(),
+                  SettingsTab(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:blogr_app/controllers/home_screen_controller.dart';
 import 'package:blogr_app/controllers/login_screen_controller.dart';
 import 'package:blogr_app/controllers/profile_screen_controller.dart';
 import 'package:blogr_app/controllers/search_screen_controller.dart';
+import 'package:blogr_app/controllers/users_profile_screen_controller.dart';
 import 'package:get/get.dart';
 
 class ControllersBinding implements Bindings {
@@ -19,5 +20,7 @@ class ControllersBinding implements Bindings {
     Get.lazyPut<HomeScreenController>(() => HomeScreenController());
     Get.lazyPut<SearchScreenController>(() => SearchScreenController());
     Get.lazyPut<ProfileScreenController>(() => ProfileScreenController());
+    Get.lazyPut<UsersProfileScreenController>(
+        () => UsersProfileScreenController());
   }
 }

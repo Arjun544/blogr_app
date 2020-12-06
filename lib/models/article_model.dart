@@ -1,6 +1,6 @@
-
 class ArticleModel {
   String id;
+  String userId;
   String searchKey;
   String title;
   String desc;
@@ -15,6 +15,7 @@ class ArticleModel {
 
   ArticleModel(
       {this.id,
+      this.userId,
       this.searchKey,
       this.desc,
       this.categoryType,
@@ -30,6 +31,7 @@ class ArticleModel {
   Map toMap(ArticleModel article) {
     var data = Map<String, dynamic>();
     data['id'] = article.id;
+    data['userId'] = article.userId;
     data['searchKey'] = article.searchKey;
     data['title'] = article.title;
     data['desc'] = article.desc;
@@ -47,6 +49,7 @@ class ArticleModel {
   // Named constructor
   ArticleModel.fromMap(Map<String, dynamic> mapData) {
     this.id = mapData['id'];
+    this.userId = mapData['userID'];
     this.id = mapData['searchKey'];
     this.title = mapData['title'];
     this.desc = mapData['desc'];

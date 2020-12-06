@@ -73,7 +73,7 @@ class CategoryScreen extends StatelessWidget {
                         snapshot.data.docs.length.toString(),
                         style: TextStyle(
                           fontSize: 18,
-                          color: CustomColors.blackColor,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

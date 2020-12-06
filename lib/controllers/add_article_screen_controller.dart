@@ -60,10 +60,12 @@ class AddArticleController extends GetxController {
   }
 
   saveArticle() async {
+    
     articleImage = file == null
         ? noImageUrl
         : await databaseController.uploadArticleImage(currentUser.uid, file);
     databaseController.saveArticle(
+      userId: currentUser.uid,
       searchKey: titleController.text[0],
       title: titleController.text,
       addedBy: currentUser.displayName,

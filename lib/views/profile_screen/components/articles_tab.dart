@@ -28,6 +28,26 @@ class ArticlesTab extends StatelessWidget {
         if (!snapshot.hasData && snapshot.data == null) {
           return Lottie.asset('assets/loading.json');
         }
+        if (snapshot.data.docs.length == 0) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset('assets/no articles.json'),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'No articles',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black45,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              );
+            }
         return ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,

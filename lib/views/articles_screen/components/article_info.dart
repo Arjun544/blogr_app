@@ -1,4 +1,3 @@
-
 import 'package:blogr_app/controllers/articles_controller.dart';
 import 'package:blogr_app/views/articles_screen/components/reading_time.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -42,23 +41,12 @@ class ArticleInfo extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    articles.data()['likes'].length.toString(),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).textTheme.headline1.color,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SvgPicture.asset(
-                    'assets/Heart.svg',
-                    height: 17,
-                    color: Colors.pink,
-                  )
-                ],
+              Text(
+                readTime['text'],
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -98,18 +86,28 @@ class ArticleInfo extends StatelessWidget {
                   Text(
                     articles.data()['addedBy'],
                     style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 16,
                         color: Colors.grey,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
-              Text(
-                readTime['text'],
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w700),
+              Row(
+                children: [
+                  Text(
+                    articles.data()['likes'].length.toString(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).textTheme.headline1.color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SvgPicture.asset(
+                    'assets/Heart.svg',
+                    height: 17,
+                    color: Colors.pink,
+                  ),
+                ],
               ),
             ],
           ),

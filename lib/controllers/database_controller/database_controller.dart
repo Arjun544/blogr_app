@@ -116,6 +116,7 @@ class DatabaseController extends GetxController {
   }
 
   Future<void> saveArticle({
+    String userId,
     String title,
     String desc,
     String imageUrl,
@@ -127,6 +128,7 @@ class DatabaseController extends GetxController {
     String docId = getRandomId(28);
     ArticleModel articleModel = ArticleModel(
         id: docId,
+        userId: userId,
         searchKey: searchKey,
         addedOn: DateTime.now(),
         addedBy: addedBy,
@@ -141,6 +143,17 @@ class DatabaseController extends GetxController {
     await _articlesCollection.doc(docId).set(
           articleModel.toMap(articleModel),
         );
+  }
+
+  Future<UserModel> getUserDetailsById(String userId) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await _userCollection.doc(userId).get();
+      return UserModel.fromMap(documentSnapshot.data());
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 
   Future getSearchResults(String searchKey) {

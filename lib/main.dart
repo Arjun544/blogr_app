@@ -1,5 +1,6 @@
 import 'package:blogr_app/utils/themeService_util.dart';
 import 'package:blogr_app/utils/themes_util.dart';
+import 'package:blogr_app/views/users_profile_screen/users_profile_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,7 +45,6 @@ class MyApp extends StatelessWidget {
           PopularScreen.routeName: (context) => const PopularScreen(),
           FavoriteScreen.routeName: (context) => FavoriteScreen(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
-          // SearchScreen.routeName: (context) => const SearchScreen(),
         });
   }
 }

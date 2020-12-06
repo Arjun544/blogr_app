@@ -79,7 +79,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
                           print(categories[index].txt);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 30, left: 5),
+                          padding: const EdgeInsets.only(right: 20, left: 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

@@ -40,7 +40,7 @@ class ArticleOptions extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: CustomColors.blackColor,
+                          color: Theme.of(context).textTheme.headline1.color,
                         ),
                       ),
                       SizedBox(
@@ -82,7 +82,8 @@ class ArticleOptions extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                color: CustomColors.blackColor,
+                                color:
+                                    Theme.of(context).textTheme.headline1.color,
                               ),
                             ),
                             SizedBox(

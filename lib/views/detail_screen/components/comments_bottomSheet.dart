@@ -111,7 +111,7 @@ class CommentsBottomSheet extends StatelessWidget {
                                     ),
                                     Container(
                                       height: 100,
-                                      width: Get.mediaQuery.size.width * 0.75,
+                                      width: Get.mediaQuery.size.width * 0.7,
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
                                       margin: EdgeInsets.only(top: 10),
