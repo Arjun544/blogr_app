@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/auth_controller/auth_controller.dart';
 import 'package:blogr_app/controllers/database_controller/database_controller.dart';
-import 'package:blogr_app/controllers/login_screen_controller.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,12 +18,60 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final DatabaseController databaseController = Get.find<DatabaseController>();
-
-  final LoginScreenController loginScreenController =
-      Get.find<LoginScreenController>();
-
   final AuthController authController = Get.find<AuthController>();
+
+  StreamSubscription<DataConnectionStatus> listener;
+  var internetStatus = "Unknown";
+  var contentmessage = "Unknown";
+
   bool isLogging = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnection(context);
+  }
+
+  @override
+  void dispose() {
+    checkConnection(context).listener.cancel();
+    listener.cancel();
+    super.dispose();
+  }
+
+  void _showDialog(String title, String content, BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(title),
+              content: Text(content),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Close"))
+              ]);
+        });
+  }
+
+  checkConnection(BuildContext context) async {
+    listener = DataConnectionChecker().onStatusChange.listen((status) {
+      switch (status) {
+        case DataConnectionStatus.connected:
+          internetStatus = "Connected to the Internet";
+          contentmessage = "Connected to the Internet";
+          break;
+        case DataConnectionStatus.disconnected:
+          internetStatus = "You are disconnected to the Internet. ";
+          contentmessage = "Please check your internet connection";
+          _showDialog(internetStatus, contentmessage, context);
+          break;
+      }
+    });
+    return await DataConnectionChecker().connectionStatus;
+  }
 
   @override
   Widget build(BuildContext context) {
