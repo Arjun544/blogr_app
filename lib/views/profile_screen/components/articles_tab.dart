@@ -41,7 +41,7 @@ class ArticlesTab extends StatelessWidget {
                       'No articles',
                       style: TextStyle(
                           fontSize: 20,
-                          color: Colors.black45,
+                          color: Theme.of(context).textTheme.headline1.color,
                           fontWeight: FontWeight.bold),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:blogr_app/models/splash_model.dart';
 import 'package:blogr_app/views/home_screen/home_screen.dart';
 import 'package:blogr_app/views/splash_screen/components/page_button.dart';
@@ -68,6 +69,7 @@ class _SplashScreenState extends State<SplashScreen>
         _animationController.forward();
       }
     });
+
     super.initState();
   }
 

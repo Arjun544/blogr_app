@@ -1,8 +1,12 @@
+import 'package:blogr_app/views/home_screen/home_screen.dart';
+import 'package:blogr_app/views/splash_screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -18,16 +22,23 @@ class AuthController {
       idToken: googleAuth.idToken,
     );
 
-    // Once signed in, return the UserCredential
-    return await _auth.signInWithCredential(credential);
+    UserCredential result = await _auth.signInWithCredential(credential);
+    if (result.additionalUserInfo.isNewUser) {
+      //User logging in for the first time
+      Get.offAndToNamed(SplashScreen.routeName);
+    } else {
+      Get.offNamedUntil(HomeScreen.routeName, (route) => false);
+    }
+    return result;
   }
 
   Future signOut() async {
     try {
-      GoogleSignIn().signOut();
+      await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().disconnect();
+      await GoogleSignIn().signOut();
     } catch (e) {
       print(e);
-      return false;
     }
   }
 }

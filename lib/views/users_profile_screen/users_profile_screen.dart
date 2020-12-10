@@ -1,21 +1,20 @@
 import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/database_controller/database_controller.dart';
 import 'package:blogr_app/controllers/users_profile_screen_controller.dart';
-import 'package:blogr_app/models/user_model.dart';
 import 'package:blogr_app/views/detail_screen/detail_screen.dart';
+import 'package:blogr_app/views/users_profile_screen/components/follow_button.dart';
 import 'package:blogr_app/views/users_profile_screen/components/profile_tile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class UsersProfile extends StatelessWidget {
+class UsersProfileScreen extends StatelessWidget {
   static final String routeName = 'usersProfile screen';
   final String user;
 
-  UsersProfile({@required this.user});
+  UsersProfileScreen({@required this.user});
 
   final DatabaseController databaseController = Get.find<DatabaseController>();
   final UsersProfileScreenController usersProfileScreenController =
@@ -26,14 +25,16 @@ class UsersProfile extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
-        body: FutureBuilder<UserModel>(
-          future: databaseController.getUserDetailsById(user),
+        body: FutureBuilder(
+          future:
+              FirebaseFirestore.instance.collection('users').doc(user).get(),
           builder: (context, snapshot) {
             if (!snapshot.hasData && snapshot.data == null) {
               return Center(
                 child: Lottie.asset('assets/loading.json'),
               );
             }
+            DocumentSnapshot userData = snapshot.data;
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -46,24 +47,28 @@ class UsersProfile extends StatelessWidget {
                   iconTheme: IconThemeData(color: Colors.white),
                   flexibleSpace: FlexibleSpaceBar(
                     title: Text(
-                      snapshot.data.username,
-                      style: TextStyle(fontSize: 18),
+                      userData['username'],
+                      style: TextStyle(
+                          fontSize: 22, color: Colors.white),
                     ),
                     centerTitle: true,
                     background: Stack(
                       alignment: Alignment.center,
                       children: [
                         Positioned.fill(
-                          child: Image.network(
-                            'https://media.istockphoto.com/vectors/abstract-black-background-geometric-texture-vector-id936834172?k=6&m=936834172&s=612x612&w=0&h=oF8_qU5HuultCXfI7KZANZcJBf9VZMuz177kpgEnMcc=',
+                          child: Image.asset(
+                            'assets/profile_back.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
-                        CircleAvatar(
-                          radius: 60.0,
-                          backgroundImage: CachedNetworkImageProvider(
-                              snapshot.data.profilePhoto),
-                          backgroundColor: Colors.transparent,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: CircleAvatar(
+                            radius: 60.0,
+                            backgroundImage: CachedNetworkImageProvider(
+                                userData['profile_photo']),
+                            backgroundColor: Colors.transparent,
+                          ),
                         ),
                       ],
                     ),
@@ -74,7 +79,7 @@ class UsersProfile extends StatelessWidget {
                   child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
                           .collection('articles')
-                          .where('addedBy', isEqualTo: snapshot.data.username)
+                          .where('addedBy', isEqualTo: userData['username'])
                           .snapshots(),
                       builder:
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -91,7 +96,7 @@ class UsersProfile extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    ' Published artciles',
+                                    'Artciles',
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Theme.of(context)
@@ -116,9 +121,24 @@ class UsersProfile extends StatelessWidget {
                                       snapshot.data.docs.length.toString(),
                                       style: TextStyle(
                                         fontSize: 18,
-                                        color: Colors.white,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .headline3
+                                            .color,
                                         fontWeight: FontWeight.bold,
                                       ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        FollowButton(
+                                          userData: userData,
+                                          height: 48,
+                                          width: 160,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],

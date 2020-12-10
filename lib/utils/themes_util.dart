@@ -34,7 +34,7 @@ class MyThemes {
         color: CustomColors.greyColor,
       ),
       headline3: TextStyle(
-        color: CustomColors.greyColor,
+        color: Colors.white,
       ),
     ),
     cardColor: Colors.grey.withOpacity(0.3), // Profile & Fav Screens card
@@ -71,7 +71,7 @@ class MyThemes {
         color: Colors.white60,
       ),
       headline3: TextStyle(
-        color: CustomColors.greyColor,
+        color: CustomColors.blackColor,
       ),
     ),
     cardColor: CustomColors.bottomBarColor

@@ -1,5 +1,5 @@
 import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:blogr_app/models/category_model.dart';
 import 'package:blogr_app/views/category_screen/category_screen.dart';
 import 'package:blogr_app/views/search_screen/search_screen.dart';
@@ -53,8 +53,8 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
           preferredSize: null,
           child: Container(
             height: 40,
-            child: GetBuilder<ArticlesController>(
-              init: ArticlesController(),
+            child: GetBuilder<ArticlesScreenController>(
+              init: ArticlesScreenController(),
               builder: (controller) {
                 return ListView.builder(
                     shrinkWrap: true,

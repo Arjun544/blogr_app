@@ -67,7 +67,11 @@ class SettingsTab extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await authController.signOut();
-                  Get.toNamed(LoginScreen.routeName);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                      (Route<dynamic> route) => false);
                 }),
           ],
         ),

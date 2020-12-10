@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
+import 'package:blogr_app/controllers/profile_screen_controller.dart';
 import 'package:blogr_app/views/articles_screen/components/article_tile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -13,31 +15,32 @@ import 'components/top_appbar.dart';
 class ArticlesScreen extends StatelessWidget {
   static final String routeName = 'articles screen';
 
-  final ArticlesController articlesController = Get.find<ArticlesController>();
-
   ArticlesScreen({Key key}) : super(key: key);
+  final ArticlesScreenController articlesScreenController =
+      Get.find<ArticlesScreenController>();
+
+  final ProfileScreenController profileScreenController =
+      Get.find<ProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = Get.height;
     final double screenWidth = Get.width;
-    var date = DateTime.now();
-    date = DateTime(date.year, date.month, date.day);
 
     Future<bool> _onWillPop() async {
       return (await showDialog(
             context: context,
             builder: (context) => new AlertDialog(
-              title: new Text('Are you sure?'),
-              content: new Text('Do you want to exit an App'),
+              title: Text('Are you sure?'),
+              content: Text('Do you want to exit an App'),
               actions: <Widget>[
                 FlatButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: new Text('No'),
+                  child: Text('No'),
                 ),
                 FlatButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: new Text('Yes'),
+                  child: Text('Yes'),
                 ),
               ],
             ),
@@ -64,7 +67,7 @@ class ArticlesScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 25),
                       child: Text(
-                        "Today's Read",
+                        "Following",
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -72,43 +75,87 @@ class ArticlesScreen extends StatelessWidget {
                             color: Theme.of(context).textTheme.headline1.color),
                       ),
                     ),
-                    Container(
-                      height: screenHeight * 0.32,
-                      child: StreamBuilder<QuerySnapshot>(
+                    StreamBuilder<DocumentSnapshot>(
                         stream: FirebaseFirestore.instance
-                            .collection('articles')
-                            .where('addedOn', isGreaterThanOrEqualTo: date)
-                            .orderBy('addedOn', descending: true)
+                            .collection('users')
+                            .doc(FirebaseAuth.instance.currentUser.uid)
                             .snapshots(),
-                        builder:
-                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (!snapshot.hasData && snapshot.data == null) {
-                            return Center(
-                                child: Lottie.asset('assets/loading.json'));
+                        builder: (context,
+                            AsyncSnapshot<DocumentSnapshot> futureSnapShot) {
+                          if (!futureSnapShot.hasData &&
+                              futureSnapShot.data == null) {
+                            return SizedBox();
                           }
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.docs.length,
-                              padding: EdgeInsets.only(left: 15),
-                              itemBuilder: (context, index) {
-                                DocumentSnapshot todaysArticles =
-                                    snapshot.data.docs[index];
-                                return Container(
-                                  width: screenWidth * 0.8,
-                                  margin: EdgeInsets.only(right: 6),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: ArticleTile(
-                                    articles: todaysArticles,
-                                    isMini: true,
-                                  ),
-                                );
-                              });
-                        },
-                      ),
-                    ),
+                          DocumentSnapshot documentSnapshot =
+                              futureSnapShot.data;
+                          return Container(
+                            height: screenHeight * 0.32,
+                            child: StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('articles')
+                                  .where('userId',
+                                      whereIn: documentSnapshot['following'])
+                                  .snapshots(),
+                              builder: (context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                print(documentSnapshot['following']);
+                                if (!snapshot.hasData &&
+                                    snapshot.data == null) {
+                                  return Center(
+                                    child: Lottie.asset('assets/loading.json'),
+                                  );
+                                }
+                                if (snapshot.data.docs.length == 0) {
+                                  return Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Lottie.asset('assets/no articles.json',
+                                            height: 140),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          'No body yet',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .headline1
+                                                .color,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                                return ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data.docs.length,
+                                    padding: EdgeInsets.only(left: 15),
+                                    itemBuilder: (context, index) {
+                                      DocumentSnapshot followingArticles =
+                                          snapshot.data.docs[index];
+                                      return Container(
+                                        width: screenWidth * 0.8,
+                                        margin: EdgeInsets.only(right: 6),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                        child: ArticleTile(
+                                          articles: followingArticles,
+                                          isMini: true,
+                                        ),
+                                      );
+                                    });
+                              },
+                            ),
+                          );
+                        }),
                   ],
                 ),
               ),

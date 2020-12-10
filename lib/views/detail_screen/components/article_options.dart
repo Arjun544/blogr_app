@@ -1,5 +1,4 @@
-import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,7 +10,7 @@ class ArticleOptions extends StatelessWidget {
   final DocumentSnapshot articles;
 
   ArticleOptions({this.articles});
-  final ArticlesController articlesController = Get.find<ArticlesController>();
+  final ArticlesScreenController articlesController = Get.find<ArticlesScreenController>();
 
   @override
   Widget build(BuildContext context) {

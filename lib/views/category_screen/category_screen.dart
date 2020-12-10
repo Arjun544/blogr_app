@@ -1,4 +1,3 @@
-import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/models/category_model.dart';
 import 'package:blogr_app/views/articles_screen/components/article_tile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -73,7 +72,7 @@ class CategoryScreen extends StatelessWidget {
                         snapshot.data.docs.length.toString(),
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.white,
+                          color: Theme.of(context).textTheme.headline3.color,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -1,4 +1,4 @@
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:blogr_app/views/articles_screen/components/reading_time.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +17,7 @@ class ArticleInfo extends StatelessWidget {
     this.screenHeight,
     this.screenWidth,
   });
-  final ArticlesController articlesController = Get.find<ArticlesController>();
+  final ArticlesScreenController articlesController = Get.find<ArticlesScreenController>();
 
   @override
   Widget build(BuildContext context) {

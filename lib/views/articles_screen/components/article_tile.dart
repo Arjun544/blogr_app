@@ -1,4 +1,4 @@
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:blogr_app/views/articles_screen/components/article_info.dart';
 import 'package:blogr_app/views/detail_screen/detail_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,7 +12,7 @@ class ArticleTile extends StatelessWidget {
 
   ArticleTile({this.isMini, @required this.articles});
 
-  final ArticlesController articlesController = Get.find<ArticlesController>();
+  final ArticlesScreenController articlesController = Get.find<ArticlesScreenController>();
 
   @override
   Widget build(BuildContext context) {

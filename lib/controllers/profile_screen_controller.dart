@@ -6,6 +6,7 @@ class ProfileScreenController extends GetxController {
   User currentUser;
   RxBool isChecked = false.obs;
   GetStorage getStorage = GetStorage();
+  
 
   @override
   void onInit() {

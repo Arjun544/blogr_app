@@ -1,8 +1,12 @@
+import 'package:blogr_app/controllers/root_screen.dart';
 import 'package:blogr_app/views/login_screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'home_screen/home_screen.dart';
+
+enum AuthStatus { notLoggedIn, loggedIn }
 
 class RootScreen extends StatefulWidget {
   @override
@@ -10,31 +14,43 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  bool isSigned = false;
+  final RootScreenController rootScreenController =
+      Get.find<RootScreenController>();
+  AuthStatus _authStatus = AuthStatus.notLoggedIn;
+  User currentUser;
 
+  @override
   void initState() {
+    currentUser = rootScreenController.currentUser;
+    onStartup();
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((useraccount) {
-      if (useraccount != null) {
-        if (this.mounted) {
-          setState(() {
-            isSigned = true;
-          });
-        }
+  }
+
+  void onStartup() async {
+    setState(() {
+      if (currentUser != null) {
+        _authStatus = AuthStatus.loggedIn;
       } else {
-        if (this.mounted) {
-          setState(() {
-            isSigned = false;
-          });
-        }
+        setState(() {
+          _authStatus = AuthStatus.notLoggedIn;
+        });
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: isSigned == false ? LoginScreen() : HomeScreen(),
-    );
+    Widget retVal;
+
+    switch (_authStatus) {
+      case AuthStatus.notLoggedIn:
+        retVal = LoginScreen();
+        break;
+      case AuthStatus.loggedIn:
+        retVal = HomeScreen();
+        break;
+      default:
+    }
+    return retVal;
   }
 }

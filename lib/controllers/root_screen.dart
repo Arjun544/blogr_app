@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class UsersProfileScreenController extends GetxController {
+class RootScreenController extends GetxController {
   User currentUser;
 
   @override

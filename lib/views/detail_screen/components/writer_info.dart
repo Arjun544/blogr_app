@@ -1,9 +1,10 @@
 import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:blogr_app/views/articles_screen/components/reading_time.dart';
 import 'package:blogr_app/views/users_profile_screen/users_profile_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,7 @@ import 'package:intl/intl.dart';
 class WriterInfo extends StatelessWidget {
   final DocumentSnapshot articles;
 
-  final ArticlesController articlesController = Get.find<ArticlesController>();
+  final ArticlesScreenController articlesController = Get.find<ArticlesScreenController>();
 
   WriterInfo({@required this.articles});
 
@@ -32,12 +33,12 @@ class WriterInfo extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              articles.data()['userId'] == articlesController.currentUser.uid
+              articles.data()['userId'] == FirebaseAuth.instance.currentUser.uid
                   ? SizedBox()
                   : Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
-                        return UsersProfile(
+                        return UsersProfileScreen(
                           user: articles.data()['userId'],
                         );
                       }),

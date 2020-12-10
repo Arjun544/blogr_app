@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:blogr_app/constants/constants.dart';
+import 'package:blogr_app/views/home_screen/home_screen.dart';
 import 'package:blogr_app/views/login_screen/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LogoScreen extends StatefulWidget {
@@ -17,6 +19,9 @@ class _LogoScreenState extends State<LogoScreen>
   Animation<double> _fadeAnimation;
   Animation<Offset> _slideOne;
   Animation<Offset> _slideTwo;
+
+   final FirebaseAuth _auth = FirebaseAuth.instance;
+   
   @override
   void initState() {
     _controller =
@@ -33,11 +38,26 @@ class _LogoScreenState extends State<LogoScreen>
     Timer(Duration(seconds: 2), () {
       _controller.forward();
     });
-    Timer(Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-    });
-
+    navigateUser();
     super.initState();
+  }
+
+    navigateUser() async {
+    // checking whether user already loggedIn or not
+    if (_auth.currentUser != null) {
+      // &&  FirebaseAuth.instance.currentUser.reload() != null
+      Timer(
+        Duration(seconds: 3),
+        () => Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+            (Route<dynamic> route) => false),
+      );
+    } else {
+      Timer(Duration(seconds: 4),
+          () => Navigator.pushReplacementNamed(context, LoginScreen.routeName));
+    }
   }
 
   @override

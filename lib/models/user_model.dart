@@ -3,13 +3,16 @@ class UserModel {
   String email;
   String username;
   String profilePhoto;
-
+  List<dynamic> followers;
+  List<String> following;
 
   UserModel({
     this.uid,
     this.email,
     this.username,
     this.profilePhoto,
+    this.followers,
+    this.following,
   });
 
   Map toMap(UserModel user) {
@@ -18,6 +21,8 @@ class UserModel {
     data['email'] = user.email;
     data['username'] = user.username;
     data["profile_photo"] = user.profilePhoto;
+    data["followers"] = user.followers;
+    data["following"] = user.following;
     return data;
   }
 
@@ -27,5 +32,7 @@ class UserModel {
     this.email = mapData['email'];
     this.username = mapData['username'];
     this.profilePhoto = mapData['profile_photo'];
+    this.followers = mapData['followers'];
+    this.following = mapData['following'];
   }
 }

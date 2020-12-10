@@ -97,7 +97,11 @@ class AddArticleScreen extends StatelessWidget {
                   child: TextField(
                     controller: addArticleController.titleController,
                     maxLines: 2,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.headline1.color,
+                    ),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Title here',

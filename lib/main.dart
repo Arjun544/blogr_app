@@ -1,6 +1,6 @@
 import 'package:blogr_app/utils/themeService_util.dart';
 import 'package:blogr_app/utils/themes_util.dart';
-import 'package:blogr_app/views/users_profile_screen/users_profile_screen.dart';
+import 'package:blogr_app/views/logo_screen/logo_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,6 @@ import 'views/home_screen/home_screen.dart';
 import 'views/login_screen/login_screen.dart';
 import 'views/popular _screen/popular_screen.dart';
 import 'views/profile_screen/profile_screen.dart';
-import 'views/root_screen.dart';
 import 'views/splash_screen/splash_screen.dart';
 
 void main() async {
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
         darkTheme: MyThemes.dark,
         themeMode: ThemeService().theme,
         debugShowCheckedModeBanner: false,
-        home: RootScreen(),
+        home: LogoScreen(),
         initialBinding: ControllersBinding(),
         routes: {
           LoginScreen.routeName: (context) => LoginScreen(),

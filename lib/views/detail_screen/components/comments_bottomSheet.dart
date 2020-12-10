@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:blogr_app/controllers/database_controller/database_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +13,7 @@ class CommentsBottomSheet extends StatelessWidget {
   final DocumentSnapshot articles;
 
   final DatabaseController databaseController = Get.find<DatabaseController>();
-  final ArticlesController articlesController = Get.find<ArticlesController>();
+  final ArticlesScreenController articlesController = Get.find<ArticlesScreenController>();
   final TextEditingController commentController = TextEditingController();
 
   CommentsBottomSheet({@required this.articles});

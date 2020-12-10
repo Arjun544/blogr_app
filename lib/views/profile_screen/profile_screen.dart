@@ -2,8 +2,10 @@ import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/profile_screen_controller.dart';
 import 'package:blogr_app/views/profile_screen/components/articles_tab.dart';
 import 'package:blogr_app/views/profile_screen/components/settings_tab.dart';
-import 'package:flutter/material.dart';
+import 'package:blogr_app/views/profile_screen/components/user_stats.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -20,10 +22,12 @@ class _ProfileScreenState extends State<ProfileScreen>
       Get.find<ProfileScreenController>();
 
   TabController tabController;
+  User currentUser;
 
   @override
   void initState() {
     tabController = TabController(initialIndex: 0, length: 2, vsync: this);
+    currentUser = FirebaseAuth.instance.currentUser;
     super.initState();
   }
 
@@ -43,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               expandedHeight: 250,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
-                  profileScreenController.currentUser.displayName,
+                  currentUser.displayName,
                   style: TextStyle(fontSize: 18),
                 ),
                 centerTitle: true,
@@ -51,17 +55,23 @@ class _ProfileScreenState extends State<ProfileScreen>
                   alignment: Alignment.center,
                   children: [
                     Positioned.fill(
-                      child: Image.network(
-                        'https://media.istockphoto.com/vectors/abstract-black-background-geometric-texture-vector-id936834172?k=6&m=936834172&s=612x612&w=0&h=oF8_qU5HuultCXfI7KZANZcJBf9VZMuz177kpgEnMcc=',
+                      child: Image.asset(
+                        'assets/profile_back.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
-                    CircleAvatar(
-                      radius: 60.0,
-                      backgroundImage: CachedNetworkImageProvider(
-                          profileScreenController.currentUser.photoURL),
-                      backgroundColor: Colors.transparent,
-                    )
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          radius: 60.0,
+                          backgroundImage:
+                              CachedNetworkImageProvider(currentUser.photoURL),
+                          backgroundColor: Colors.transparent,
+                        ),
+                        UserStats(),
+                      ],
+                    ),
                   ],
                 ),
               ),

@@ -1,5 +1,5 @@
 import 'package:blogr_app/constants/constants.dart';
-import 'package:blogr_app/controllers/articles_controller.dart';
+import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:blogr_app/views/detail_screen/detail_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +13,7 @@ class FavoriteScreen extends StatelessWidget {
   static final String routeName = 'favorite screen';
   FavoriteScreen({Key key}) : super(key: key);
 
-  final ArticlesController articlesController = Get.find<ArticlesController>();
+  final ArticlesScreenController articlesController = Get.find<ArticlesScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +51,10 @@ class FavoriteScreen extends StatelessWidget {
                     Text(
                       'No bookmarks',
                       style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black45,
-                          fontWeight: FontWeight.bold),
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.headline1.color,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),

@@ -32,14 +32,80 @@ class DatabaseController extends GetxController {
         ),
       );
 
-  Future<void> addDataToDb(var currentUser) async {
-    UserModel user = UserModel(
+  void addDataToDb(var currentUser) async {
+    try {
+      UserModel user = UserModel(
         uid: currentUser.uid,
         email: currentUser.email,
         profilePhoto: currentUser.photoURL,
-        username: currentUser.displayName);
+        username: currentUser.displayName,
+        followers: [],
+        following: ['a'],
+      );
+      await _userCollection.doc(currentUser.uid).set(user.toMap(user));
+    } catch (e) {
+      print(e);
+    }
+  }
 
-    _userCollection.doc(currentUser.uid).set(user.toMap(user));
+  Future<void> userFollowers({
+    String id,
+    String userId,
+    String displayName,
+    String email,
+    String profilePic,
+  }) async {
+    DocumentSnapshot doc = await _userCollection.doc(id).get();
+    if (doc.data()['followers'].contains(userId)) {
+      await _userCollection.doc(id).update({
+        'followers': FieldValue.arrayRemove([userId])
+      });
+      await _userCollection
+          .doc(id)
+          .collection('followers')
+          .doc(userId)
+          .delete();
+    } else {
+      await _userCollection.doc(id).update({
+        'followers': FieldValue.arrayUnion([userId])
+      });
+      await _userCollection.doc(id).collection('followers').doc(userId).set({
+        'uid': userId,
+        'username': displayName,
+        'email': email,
+        'profile_photo': profilePic,
+      });
+    }
+  }
+
+  Future<void> userFollowings({
+    String id,
+    String userId,
+    String displayName,
+    String email,
+    String profilePic,
+  }) async {
+    DocumentSnapshot doc = await _userCollection.doc(id).get();
+    if (doc.data()['following'].contains(userId)) {
+      await _userCollection.doc(id).update({
+        'following': FieldValue.arrayRemove([userId])
+      });
+      await _userCollection
+          .doc(id)
+          .collection('followings')
+          .doc(userId)
+          .delete();
+    } else {
+      await _userCollection.doc(id).update({
+        'following': FieldValue.arrayUnion([userId])
+      });
+      await _userCollection.doc(id).collection('followings').doc(userId).set({
+        'uid': userId,
+        'username': displayName,
+        'email': email,
+        'profile_photo': profilePic,
+      });
+    }
   }
 
   Future<String> uploadArticleImage(String userId, File imagePath) async {
@@ -87,12 +153,10 @@ class DatabaseController extends GetxController {
       await _articlesCollection.doc(articleId).update({
         'bookMarks': FieldValue.arrayRemove([userId])
       });
-      update();
     } else {
       await _articlesCollection.doc(articleId).update({
         'bookMarks': FieldValue.arrayUnion([userId])
       });
-      update();
     }
     update();
   }
