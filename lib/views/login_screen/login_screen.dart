@@ -62,11 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           authController.signInWithGoogle().whenComplete(() {
                             databaseController
                                 .addDataToDb(FirebaseAuth.instance.currentUser);
-                            // Navigator.of(context).pushAndRemoveUntil(
-                            //     MaterialPageRoute(
-                            //       builder: (context) => HomeScreen(),
-                            //     ),
-                            //     (Route<dynamic> route) => false);
                           }).catchError((onError) {
                             Navigator.pushReplacementNamed(
                                 context, LoginScreen.routeName);
