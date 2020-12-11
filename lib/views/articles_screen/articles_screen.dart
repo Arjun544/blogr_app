@@ -199,7 +199,7 @@ class ArticlesScreen extends StatelessWidget {
                       child: StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance
                             .collection('articles')
-                            .orderBy('likes', descending: true)
+                            .orderBy('likes', descending: false)
                             .snapshots(),
                         builder:
                             (context, AsyncSnapshot<QuerySnapshot> snapshot) {

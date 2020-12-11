@@ -105,10 +105,11 @@ class FollowersDetail extends StatelessWidget {
                                         followersData['profile_photo']),
                                   ),
                                   SizedBox(
-                                    width: 20,
+                                    width: 15,
                                   ),
                                   Text(
                                     followersData['username'],
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Theme.of(context)
@@ -123,7 +124,7 @@ class FollowersDetail extends StatelessWidget {
                             ),
                             FollowButton(
                               height: 40,
-                              width: 120,
+                              width: 110,
                               userData: followersData,
                             ),
                           ],

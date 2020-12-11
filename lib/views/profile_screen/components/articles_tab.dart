@@ -4,6 +4,7 @@ import 'package:blogr_app/controllers/profile_screen_controller.dart';
 import 'package:blogr_app/views/detail_screen/detail_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class ArticlesTab extends StatelessWidget {
       stream: FirebaseFirestore.instance
           .collection('articles')
           .where('addedBy',
-              isEqualTo: profileScreenController.currentUser.displayName)
+              isEqualTo: FirebaseAuth.instance.currentUser.displayName)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData && snapshot.data == null) {
