@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:blogr_app/constants/constants.dart';
 import 'package:blogr_app/controllers/articles_screen_controller.dart';
 import 'package:blogr_app/controllers/profile_screen_controller.dart';
 import 'package:blogr_app/views/articles_screen/components/article_tile.dart';
+import 'package:blogr_app/views/popular%20_screen/popular_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +15,13 @@ import 'components/top_appbar.dart';
 class ArticlesScreen extends StatelessWidget {
   static final String routeName = 'articles screen';
 
-  ArticlesScreen({Key key}) : super(key: key);
   final ArticlesScreenController articlesScreenController =
       Get.find<ArticlesScreenController>();
 
   final ProfileScreenController profileScreenController =
       Get.find<ProfileScreenController>();
+  int selectedIndex;
+  int docsLength;
 
   @override
   Widget build(BuildContext context) {
@@ -181,11 +182,14 @@ class ArticlesScreen extends StatelessWidget {
                                     .headline1
                                     .color),
                           ),
-                          Text(
-                            "see all",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: CustomColors.greyColor,
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(PopularScreen.routeName);
+                            },
+                            child: Text(
+                              "see all",
+                              style: TextStyle(
+                                  fontSize: 20, color: Colors.white60),
                             ),
                           ),
                         ],
@@ -194,42 +198,60 @@ class ArticlesScreen extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      height: screenHeight * 0.5,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('articles')
-                            .orderBy('likes', descending: false)
-                            .snapshots(),
-                        builder:
-                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (!snapshot.hasData && snapshot.data == null) {
-                            return Lottie.asset('assets/loading.json');
-                          }
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: snapshot.data.docs.length,
-                              padding: EdgeInsets.only(left: 25, right: 23),
-                              itemBuilder: (context, index) {
-                                DocumentSnapshot popularArticles =
-                                    snapshot.data.docs[index];
-                                // articlesController.article = popularArticles;
-                                return Container(
-                                  height: screenHeight * 0.3,
-                                  width: screenWidth * 0.8,
-                                  margin: EdgeInsets.only(bottom: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                  ),
-                                  child: ArticleTile(
-                                    articles: popularArticles,
-                                    isMini: false,
-                                  ),
-                                );
-                              });
-                        },
-                      ),
+                    Column(
+                      children: [
+                        Container(
+                          height: screenHeight * 0.57,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('articles')
+                                .orderBy('likes', descending: false)
+                                .limit(10)
+                                .snapshots(),
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData && snapshot.data == null) {
+                                return Lottie.asset('assets/loading.json');
+                              }
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: snapshot.data.docs.length,
+                                  padding: EdgeInsets.only(left: 25, right: 23),
+                                  itemBuilder: (context, index) {
+                                    selectedIndex = index;
+                                    docsLength = snapshot.data.docs.length - 1;
+                                    DocumentSnapshot popularArticles =
+                                        snapshot.data.docs[index];
+                                    return Container(
+                                      height: screenHeight * 0.3,
+                                      width: screenWidth * 0.8,
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                      child: ArticleTile(
+                                        articles: popularArticles,
+                                        isMini: false,
+                                      ),
+                                    );
+                                  });
+                            },
+                          ),
+                        ),
+                        selectedIndex == docsLength
+                            ? GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(PopularScreen.routeName);
+                                },
+                                child: Text(
+                                  'see all',
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 22),
+                                ),
+                              )
+                            : SizedBox(),
+                      ],
                     ),
                   ],
                 ),

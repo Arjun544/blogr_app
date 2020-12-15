@@ -187,13 +187,11 @@ class DatabaseController extends GetxController {
     String authorPic,
     String addedBy,
     String category,
-    String searchKey,
   }) async {
     String docId = getRandomId(28);
     ArticleModel articleModel = ArticleModel(
         id: docId,
         userId: userId,
-        searchKey: searchKey,
         addedOn: DateTime.now(),
         addedBy: addedBy,
         title: title,

@@ -1,7 +1,6 @@
 class ArticleModel {
   String id;
   String userId;
-  String searchKey;
   String title;
   String desc;
   String categoryType;
@@ -16,7 +15,6 @@ class ArticleModel {
   ArticleModel(
       {this.id,
       this.userId,
-      this.searchKey,
       this.desc,
       this.categoryType,
       this.authorPic,
@@ -32,7 +30,6 @@ class ArticleModel {
     var data = Map<String, dynamic>();
     data['id'] = article.id;
     data['userId'] = article.userId;
-    data['searchKey'] = article.searchKey;
     data['title'] = article.title;
     data['desc'] = article.desc;
     data['category'] = article.categoryType;

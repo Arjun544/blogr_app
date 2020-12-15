@@ -35,7 +35,7 @@ class AddArticleScreen extends StatelessWidget {
         actions: [
           FlatButton(
             onPressed: () {
-              if (addArticleController.titleController.text.length == 0 &&
+              if (addArticleController.titleController.text.length >= 4 &&
                   addArticleController.zefyrController.document.length == 0) {
                 Get.snackbar(
                   'Empty article',

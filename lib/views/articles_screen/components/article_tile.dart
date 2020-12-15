@@ -9,10 +9,17 @@ import 'package:get/get.dart';
 class ArticleTile extends StatelessWidget {
   final bool isMini;
   final DocumentSnapshot articles;
+  final double containerHeight;
+  final double containerWidth;
 
-  ArticleTile({this.isMini, @required this.articles});
+  ArticleTile(
+      {this.isMini,
+      @required this.articles,
+      this.containerHeight,
+      this.containerWidth});
 
-  final ArticlesScreenController articlesController = Get.find<ArticlesScreenController>();
+  final ArticlesScreenController articlesController =
+      Get.find<ArticlesScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +43,12 @@ class ArticleTile extends StatelessWidget {
               imageUrl: articles.data()['imageUrl'],
               fit: BoxFit.cover,
               height: screenHeight * 0.3,
-              width: isMini ? screenWidth * 0.75 : screenWidth * 0.865,
+              width: isMini ? screenWidth * 0.75 : screenWidth * 0.9,
             ),
           ),
           Container(
             height: screenHeight * 0.18,
-            width: isMini ? screenWidth * 0.7 : screenWidth * 0.8,
+            width: isMini ? screenWidth * 0.7 : screenWidth * 0.83,
             margin: EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
               color: Theme.of(context).cardTheme.color,
