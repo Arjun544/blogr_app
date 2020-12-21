@@ -189,7 +189,11 @@ class ArticlesScreen extends StatelessWidget {
                             child: Text(
                               "see all",
                               style: TextStyle(
-                                  fontSize: 20, color: Colors.white60),
+                                  fontSize: 20,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline1
+                                      .color),
                             ),
                           ),
                         ],

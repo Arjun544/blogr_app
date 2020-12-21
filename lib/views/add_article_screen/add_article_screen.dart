@@ -35,17 +35,17 @@ class AddArticleScreen extends StatelessWidget {
         actions: [
           FlatButton(
             onPressed: () {
-              if (addArticleController.titleController.text.length >= 4 &&
-                  addArticleController.zefyrController.document.length == 0) {
+              if (addArticleController.titleController.text.length <= 2 &&
+                  addArticleController.zefyrController.document.length <= 5) {
                 Get.snackbar(
                   'Empty article',
                   'Please give title and description',
                   colorText: Colors.black,
                   snackPosition: SnackPosition.BOTTOM,
-                  margin: EdgeInsets.only(bottom: 50),
+                  margin: EdgeInsets.only(bottom: 60),
                   leftBarIndicatorColor: CustomColors.blackColor,
                   snackStyle: SnackStyle.FLOATING,
-                  backgroundColor: Colors.grey.withOpacity(0.5),
+                  backgroundColor: Colors.grey.withOpacity(0.3),
                 );
               } else {
                 Get.to(SelectCategory());

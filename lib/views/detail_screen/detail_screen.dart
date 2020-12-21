@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:blogr_app/views/add_article_screen/components/editor_image.dart';
 import 'package:blogr_app/views/detail_screen/components/article_options.dart';
 import 'package:blogr_app/views/detail_screen/components/writer_info.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,6 +10,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:quill_delta/quill_delta.dart';
+import 'package:zefyr/zefyr.dart';
 
 class DetailScreen extends StatefulWidget {
   final DocumentSnapshot articles;
@@ -141,20 +146,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     Padding(
                       padding: const EdgeInsets.only(
                           top: 15, right: 30, left: 30, bottom: 15),
-                      child: SelectableText(
-                        widget.articles.data()['desc'],
-                        toolbarOptions:
-                            ToolbarOptions(copy: true, selectAll: true),
-                        style: TextStyle(
-                          fontSize: 20,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w500,
-                        ).copyWith(
-                            color: Theme.of(context)
-                                .textTheme
-                                .headline1
-                                .color
-                                .withOpacity(0.7)),
+                      child: ZefyrView(
+                        document: NotusDocument.fromJson(
+                          jsonDecode(widget.articles.data()['desc']),
+                        ),
                       ),
                     ),
                   ],

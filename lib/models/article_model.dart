@@ -1,3 +1,5 @@
+import 'package:zefyr/zefyr.dart';
+
 class ArticleModel {
   String id;
   String userId;

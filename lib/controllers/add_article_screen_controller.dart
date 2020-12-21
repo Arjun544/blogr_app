@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:blogr_app/controllers/database_controller/database_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +10,7 @@ import 'package:zefyr/zefyr.dart';
 
 class AddArticleController extends GetxController {
   final DatabaseController databaseController = Get.find<DatabaseController>();
-  
+
   ZefyrController zefyrController;
   TextEditingController titleController = TextEditingController();
   FocusNode focusNode;
@@ -56,11 +58,11 @@ class AddArticleController extends GetxController {
 
   NotusDocument _loadDocument() {
     final Delta delta = Delta()..insert('Description here\n');
+
     return NotusDocument.fromDelta(delta);
   }
 
   saveArticle() async {
-    
     articleImage = file == null
         ? noImageUrl
         : await databaseController.uploadArticleImage(currentUser.uid, file);
@@ -69,7 +71,7 @@ class AddArticleController extends GetxController {
       title: titleController.text,
       addedBy: currentUser.displayName,
       authorPic: currentUser.photoURL,
-      desc: document.toPlainText(),
+      desc: jsonEncode(document),
       imageUrl: articleImage,
       category: selectedCategory,
     );

@@ -41,3 +41,5 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+android/app/build.gradle
+android/app/src/main/AndroidManifest.xml
